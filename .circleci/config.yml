@@ -12,9 +12,9 @@ workflows:
       - heroku/push-docker-image:
           api-key: $HEROKU_APIKEY
           app-name: $HEROKU_APPNAME
-          environment:
-            SECRET: $APP_SECRET
-            MONGODB_URI: $APP_MONGOURL
-            TEST_MONGODB_URI: $APP_TESTMONGOURL
+#          environment:
+##            SECRET: $APP_SECRET
+##            MONGODB_URI: $APP_MONGOURL
+##            TEST_MONGODB_URI: $APP_TESTMONGOURL
 
 
