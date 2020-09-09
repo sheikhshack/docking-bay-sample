@@ -10,11 +10,11 @@ workflows:
           image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
           tag: 'latest'
       - heroku/push-docker-image:
-          api-key: $HEROKU-APIKEY
-          app-name: $HEROKU-APPNAME
+          api-key: $HEROKU_APIKEY
+          app-name: $HEROKU_APPNAME
           environment:
-            SECRET: $APP-SECRET
-            MONGODB_URI: $APP-MONGOURL
-            TEST_MONGODB_URI: $APP-TESTMONGOURL
+            SECRET: $APP_SECRET
+            MONGODB_URI: $APP_MONGOURL
+            TEST_MONGODB_URI: $APP_TESTMONGOURL
 
 
