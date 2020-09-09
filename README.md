@@ -1,3 +1,5 @@
+[![sheikhshack](https://circleci.com/gh/sheikhshack/docking-bay-sample.svg?style=svg)](<LINK>)
+
 # To be docked
 
 Sample project to be docked. Some backend for blog, to be linked to a frontend
