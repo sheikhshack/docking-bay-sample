@@ -2,9 +2,7 @@ FROM node:14-alpine
 COPY . /app
 
 WORKDIR /app
-RUN rm -rf Dockerfile && /
-    rm -rf .circleci && /
-    npm install
+RUN  npm install
 
 ENV SECRET=secret
 ENV TEST_MONGODB_URI=nullified
