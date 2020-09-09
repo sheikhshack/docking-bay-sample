@@ -1,19 +1,43 @@
 version: 2.1
-orbs:
-  docker: circleci/docker@1.0.0
-  heroku: circleci/heroku@1.2.2
+jobs:
+  run_build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build the dockerfile (manual mode)
+          command: |
+            docker build -t dockingbay:latest .
+
+  run_deploy:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Install Heroku CLI (If not installed)
+          command: |
+              curl https://cli-assets.heroku.com/install.sh | sh
+      - run:
+          name: Login to heroku
+          command: 'heroku container:login'
+      - run:
+          name: Test Docker
+          command: 'docker images'
+      - run:
+          name: Push image
+          command: |
+            heroku container:push web -a $HEROKU_APP_NAME && echo "$HEROKU_APP_NAME"
+      - run:
+          name: Release the image
+          command: |
+            heroku container:release web -a $HEROKU_APP_NAME
+
 
 workflows:
-  deploy:
+  build_and_deploy:
     jobs:
-      - docker/publish:
-          image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
-          tag: 'latest'
-      - heroku/push-docker-image:
-          app-name: $HEROKU_APP_NAME
-#          environment:
-##            SECRET: $APP_SECRET
-##            MONGODB_URI: $APP_MONGOURL
-##            TEST_MONGODB_URI: $APP_TESTMONGOURL
+      - run_build
+      - run_deploy
+
 
 
