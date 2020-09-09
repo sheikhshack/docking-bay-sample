@@ -1,0 +1,20 @@
+version: 2.1
+orbs:
+  docker: circleci/docker@1.0.0
+  heroku: circleci/heroku@1.2.2
+
+workflows:
+  deploy:
+    jobs:
+      - docker/publish:
+          image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+          tag: 'latest'
+      - heroku/push-docker-image:
+          api-key: $HEROKU-APIKEY
+          app-name: $HEROKU-APPNAME
+          environment:
+            SECRET: $APP-SECRET
+            MONGODB_URI: $APP-MONGOURL
+            TEST_MONGODB_URI: $APP-TESTMONGOURL
+
+
